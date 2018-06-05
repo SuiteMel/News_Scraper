@@ -35,9 +35,9 @@ app.get("/scrape", (req, res) => {
     $("div article").each((i, element) => {
       var result = {};
 
-      var title = $(element).find("h2").text();
-      var summary = $(element).find("h2").find("a").attr("href");
-      var url = $(element).find("p").text();
+      result.title = $(element).find("h2").text();
+      result.url = $(element).find("h2").find("a").attr("href");
+      result.summary = $(element).find("p").text();
 
       db.Article.create(result)
         .then((dbArticle) => {
@@ -45,7 +45,6 @@ app.get("/scrape", (req, res) => {
         })
         .catch((err) => {
           return res.json(err);
-          //return err;
         });
     });
 
